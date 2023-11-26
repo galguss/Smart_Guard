@@ -1,7 +1,7 @@
 import React from 'react'
 import LOGO from '../images/LOGO.png'
 import '../styles/header.css'
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 function Header() {
@@ -9,7 +9,7 @@ function Header() {
     <header className='header'>
         <img className='logo' src={LOGO} alt='logo'/>
         <span className='nameApp'><b>Smart Guard</b></span>
-        <span className='RL'><a href="#">register</a>/<a href="#">login</a></span>
+        <span className='RL'><Link to="#">register</Link>/<Link to="#">login</Link></span>
     </header>
   )
 }

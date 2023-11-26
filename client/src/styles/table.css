@@ -1,0 +1,69 @@
+.list{
+    background-color:  #cdc3af;
+    direction: rtl;
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+th,td{
+    border: white solid 2px;
+    padding:0 10px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+}
+
+.btn{
+    text-align: center;
+}
+
+.btn > button{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    width: 80%;
+    color: white;
+    background-color: #6085b0;
+    border-radius: 10px;
+}
+
+.alertBtn{
+    margin: 0 10px;
+    width: 100px;
+    height: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 18px;
+    border-radius: 10px;
+    color: white;
+}
+
+.red{
+    background-color: red;
+}
+
+.green{
+    background-color: green;
+}
+
+.popup-message {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.2em;
+    animation: descend 0.5s ease forwards;
+  }
+  
+  @keyframes descend {
+    0% {
+      top: -100%;
+    }
+    100% {
+      top: 0%;
+    }
+  }
+
