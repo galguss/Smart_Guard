@@ -1,8 +1,10 @@
+import {  Routes, Route } from 'react-router-dom';
 import "./App.css";
+
 import Header from "./components/Header";
 import Home from "./components/Home";
 import GManager from "./components/GManager";
-import {  Routes, Route } from 'react-router-dom';
+import Register from "./components/Register";
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}/>
           <Route path="/GManager" element={<GManager />}/>
+          <Route path="/Register" element={<Register />}/>
         </Routes>
       </main>
     </div>

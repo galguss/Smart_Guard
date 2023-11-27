@@ -9,7 +9,7 @@ function Header() {
     <header className='header'>
         <img className='logo' src={LOGO} alt='logo'/>
         <span className='nameApp'><b>Smart Guard</b></span>
-        <span className='RL'><Link to="#">register</Link>/<Link to="#">login</Link></span>
+        <span className='RL'><Link to="/Register">register</Link>/<Link to="#">login</Link></span>
     </header>
   )
 }

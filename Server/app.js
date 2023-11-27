@@ -28,3 +28,6 @@ app.get('/', (req,res) => {
 
 const yishuvs = require('./routes/yishuvs_R');
 app.use('/yishuvs', yishuvs);
+
+const users = require('./routes/users_R');
+app.use('/user', users);
