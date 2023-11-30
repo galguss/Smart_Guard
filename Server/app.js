@@ -7,6 +7,8 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 //var bodyParser = require('body-parser');
 
+const checkAuth = require('./middlewares/checkAuth');
+
 const app = express();
 const HTTP_PORT = 4000;
 const WS_PORT = 4050;
@@ -31,3 +33,6 @@ app.use('/yishuvs', yishuvs);
 
 const users = require('./routes/users_R');
 app.use('/user', users);
+
+const LocalCars = require('./routes/carsY_R');
+app.use('/LocalCars', checkAuth, LocalCars);

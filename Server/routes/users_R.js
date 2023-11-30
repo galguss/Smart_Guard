@@ -15,4 +15,15 @@ router.post('/signUp', async (req,res) => {
     }
 })
 
+router.post('/signIn', async (req,res) => {
+    try {
+        const { Email ,Password } = req.body;
+        let user = await sql.login(Email, Password);
+
+        res.status(200).json(user);
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 module.exports = router;
