@@ -1,0 +1,39 @@
+.tPro{
+    direction: rtl;
+}
+
+.tPro > span{
+    margin: 0 20px;
+}
+
+.buttons{
+    width: 40%;
+    height: 50px;
+    margin: auto;
+    border-radius: 10px;
+    direction: rtl;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 10px;
+}
+
+.buttons > a{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #c95a44;
+    color: white;
+    height: 100%;
+    width: 48%;
+    border: solid white 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.left{
+    border-radius: 20px 20px 50px 20px;
+}
+
+.right{
+    border-radius: 50px 20px 20px 20px;
+}
