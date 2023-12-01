@@ -22,6 +22,7 @@ function decodeJwt(token) {
 function Profile() {
   const token = localStorage.getItem('token');
   const [Item, setItem] = useState(decodeJwt(token));
+  const [Type, setType] = useState('create');
   const [CObj, setCObj] = useState({});
 
   return (
@@ -31,9 +32,9 @@ function Profile() {
             <Link to={'/Profile/Guests'} className='right'>אורחים</Link><Link to={'/Profile/LocalCars'} className='left'>רכבים שלנו</Link>
         </div>
             <Routes>
-                <Route path='/LocalCars' element={<LocalCars Id={Item.id} Token={token} handleEdit = {(val) => setCObj(val)}/>} />
+                <Route path='/LocalCars' element={<LocalCars Id={Item.id} Token={token} handleEdit = {(val) => setCObj(val)} handleType ={(val) => setType(val)}/>} />
                 <Route path='/Guests' element={<Guests />} />
-                <Route path='/PForm' element={<PForm user={Item} Token={token} CNum={CObj.car_number} Approvals ={CObj.approvals_id}/>} />
+                <Route path='/PForm' element={<PForm user={Item} Token={token} CNum={CObj.car_number} Approvals ={CObj.approvals_id} type = {Type}/>} />
             </Routes>
     </div>
   )

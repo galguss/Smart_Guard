@@ -35,6 +35,15 @@ class CarsY{
         let sql = `UPDATE cars SET car_number = '${carNum}' WHERE car_id = ${carId};`;
         return this.DB.execute(sql);
     }
+
+    async DeleteCar(id){
+        let [carId, _] = await this.DB.execute(`SELECT car_number FROM local_cars WHERE approvals_id = ${id}`);
+        carId = carId[0].car_number;
+
+        await this.DB.execute(`DELETE FROM local_cars WHERE approvals_id = '${id}';`);
+        
+        return await this.DB.execute(`DELETE FROM cars WHERE car_id = '${carId}';`);
+    }
 }
 
 module.exports = CarsY;

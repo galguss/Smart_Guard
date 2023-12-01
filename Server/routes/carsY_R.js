@@ -36,4 +36,14 @@ router.patch('/Edit',async (req,res) => {
     }
 });
 
+router.delete('/Delete', async (req,res) => {
+    try {
+        const { id } = req.body;
+        await sql.DeleteCar(id);
+
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 module.exports = router;
