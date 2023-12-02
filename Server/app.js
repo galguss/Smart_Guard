@@ -8,6 +8,7 @@ const dotenv = require('dotenv');
 //var bodyParser = require('body-parser');
 
 const checkAuth = require('./middlewares/checkAuth');
+const adminCheckAuth = require('./middlewares/adminCheckAuth');
 
 const app = express();
 const HTTP_PORT = 4000;
@@ -29,7 +30,7 @@ app.get('/', (req,res) => {
 });
 
 const yishuvs = require('./routes/yishuvs_R');
-app.use('/yishuvs', yishuvs);
+app.use('/yishuvs', adminCheckAuth, yishuvs);
 
 const users = require('./routes/users_R');
 app.use('/user', users);

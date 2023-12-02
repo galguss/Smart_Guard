@@ -2,29 +2,47 @@ import React, { useState, useEffect } from "react";
 import "../styles/form.css";
 import "../styles/table.css";
 
+function decodeJwt(token) {
+  const base64Url = token.split('.')[1]; // Extract the payload (middle part of the token)
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Replace characters
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join('')); // Decode base64 and convert to JSON string
+
+  const decoded = JSON.parse(jsonPayload); // Parse JSON to JavaScript object
+  return decoded;
+}
+
 function GManager() {
+  const token = localStorage.getItem('token');
   const [Count, setCount] = useState(0);
   const [Name, setName] = useState("");
   const [List, setList] = useState([]);
   const [CE, setCE] = useState("create");
   const [Item, SetItem] = useState({});
   const [Alert, setAlert] = useState(false);
-
+  let adminID = decodeJwt(token).id;
+  
   useEffect(() => {
     getList();
   }, [Count]);
 
   async function getList() {
-    const res = await fetch("http://localhost:4000/yishuvs/List");
+    const res = await fetch(`http://localhost:4000/yishuvs/List?ID=${adminID}`,{
+      headers: {
+        "Authorization": token
+      },
+    });
     setList(await res.json());
   }
 
   async function sendData() {
     let method = CE === "create" ? "Add" : "Edit";
-    const res = await fetch("http://localhost:4000/yishuvs/" + method, {
+    const res = await fetch(`http://localhost:4000/yishuvs/${method}?ID=${adminID}`, {
       method: CE === "create" ? "POST" : "PATCH",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": token
       },
       body: JSON.stringify({
         Name: Name,
@@ -37,10 +55,11 @@ function GManager() {
   }
 
   function handleDelete(id) {
-    fetch("http://localhost:4000/yishuvs/Delete", {
+    fetch(`http://localhost:4000/yishuvs/Delete?ID=${adminID}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": token
       },
       body: JSON.stringify({
         id: id,

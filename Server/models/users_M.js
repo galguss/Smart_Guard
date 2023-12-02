@@ -40,7 +40,7 @@ class users {
            let token = jwt.sign({
               id: userPwd.resident_id,
               lastName: userPwd.last_name,
-              YishuvName: YishuvName
+              YishuvName: YishuvName,
           }, "to live in peace and comfort");
           return { 
               message: "Auth successful",
