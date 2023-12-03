@@ -37,3 +37,6 @@ app.use('/user', users);
 
 const LocalCars = require('./routes/carsY_R');
 app.use('/LocalCars', checkAuth, LocalCars);
+
+const guests = require('./routes/guests_R');
+app.use('/guests', checkAuth, guests);

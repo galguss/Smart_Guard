@@ -5,6 +5,7 @@ import "../styles/profile.css"
 import LocalCars from './LocalCars';
 import Guests from './Guests';
 import PForm from './PForm';
+import GForm from './GForm';
 
 function decodeJwt(token) {
   const base64Url = token.split('.')[1]; // Extract the payload (middle part of the token)
@@ -33,8 +34,9 @@ function Profile() {
         </div>
             <Routes>
                 <Route path='/LocalCars' element={<LocalCars Id={Item.id} Token={token} handleEdit = {(val) => setCObj(val)} handleType ={(val) => setType(val)}/>} />
-                <Route path='/Guests' element={<Guests />} />
+                <Route path='/Guests' element={<Guests Id={Item.id} Token={token} handleEdit = {(val) => setCObj(val)} handleType ={(val) => setType(val)} />} />
                 <Route path='/PForm' element={<PForm user={Item} Token={token} CNum={CObj.car_number} Approvals ={CObj.approvals_id} type = {Type}/>} />
+                <Route path='/GForm' element={<GForm IdResident={Item.id} Token={token} guest = {CObj} type = {Type}/>} />
             </Routes>
     </div>
   )
