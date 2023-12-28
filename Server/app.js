@@ -1,18 +1,15 @@
 const express = require('express');
-const webSocket = require('ws');
-const path = require('path');
-const axios = require('axios');
+//const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 const dotenv = require('dotenv');
-//var bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 
 const checkAuth = require('./middlewares/checkAuth');
 const adminCheckAuth = require('./middlewares/adminCheckAuth');
 
 const app = express();
 const HTTP_PORT = 4000;
-const WS_PORT = 4050;
 
 dotenv.config();
 
@@ -40,3 +37,6 @@ app.use('/LocalCars', checkAuth, LocalCars);
 
 const guests = require('./routes/guests_R');
 app.use('/guests', checkAuth, guests);
+
+const esp = require('./routes/esp_R');
+app.use('/ESP', esp);
