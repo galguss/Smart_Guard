@@ -1,12 +1,14 @@
 #include "esp_camera.h"
 
 //#define RedLed 33
+String IDY = "12";
 unsigned long TimeOfInformationRequest;
 int distance;
 
 // camera init
 #define CAMERA_MODEL_AI_THINKER
 #include "camera_pins.h"
+bool thereIsAPicture = false;
 
 void camera_setup(){
   camera_config_t config;
@@ -51,16 +53,15 @@ void camera_setup(){
 // Application manager
 #define VEHICLE_IDENTIFICATION 40
 #define ISSUING_A_VEHICLE_NUMBER 41
-#define VEHICLE_NUMBER_CKECK 42
-#define DATA_RESET 43
+#define DATA_RESET 42
 int CurrentStatus;
-String carNumber = "";
+
 
 void setup() {
   Serial.begin(115200);
   //pinMode(RedLed, OUTPUT);
   WiFi_SETUP();
-  //connectingSocket();
+  connectingSocket();
   camera_setup();
   TimeOfInformationRequest = millis();
   CurrentStatus = VEHICLE_IDENTIFICATION;
@@ -68,7 +69,7 @@ void setup() {
 
 
 void loop() {
-  /*switch(CurrentStatus){
+  switch(CurrentStatus){
     case VEHICLE_IDENTIFICATION:
     
       if((millis() - TimeOfInformationRequest) > 1000){
@@ -76,27 +77,22 @@ void loop() {
         TimeOfInformationRequest = millis();
       }
     
-      if(distance < 50){
+      if(distance < 50 && distance != 0){
         CurrentStatus = ISSUING_A_VEHICLE_NUMBER;
       }
-
-      
-    break;
+       break;
     case ISSUING_A_VEHICLE_NUMBER:
-      sendImage();
-      carNumber = getMessage();
-      if(carNumber != ""){
-        CurrentStatus = VEHICLE_NUMBER_CKECK;
-      }
-    break;
-    case VEHICLE_NUMBER_CKECK:
-    break;
+      
+      if(!thereIsAPicture){
+        sendImage();
+        thereIsAPicture = true;
+       }
+       
+        CurrentStatus = DATA_RESET;
+        break;
     case DATA_RESET:
-      carNumber = "";
-      CurrentStatus = VEHICLE_IDENTIFICATION;
-    break;
-  }*/
-  /*Serial.print("distance(CM): ");
-  Serial.println(distanceCM());*/
-  delay(1000); // wait a bit before taking the next measurement
+        thereIsAPicture = false;
+        CurrentStatus = VEHICLE_IDENTIFICATION;
+        break;
+  }
 }

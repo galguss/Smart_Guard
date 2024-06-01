@@ -13,9 +13,13 @@ function Header() {
   
   return (
     <header className='header'>
-        <Link to={'/'}><img className='logo' src={LOGO} alt='logo'/></Link>
-        <span className='nameApp'><b>Smart Guard</b></span>
-        {(isLogged) ? <span className='RL'><Link onClick={logout} to={'/'}>loguot</Link></span> : <span className='RL'><Link to="/Register">register</Link>/<Link to="/Login">login</Link></span>}
+      <div className='containerHeader'>
+        <div className='LOGEC'>
+          <Link to={'/'}><img className='logo' src={LOGO} alt='logo'/></Link>
+          <span className='nameApp'><b>Smart Guard</b></span>
+          </div>
+          {(isLogged) ? <span className='RL'><Link onClick={logout} to={'/'}>loguot</Link></span> : <span className='RL'><Link to="/Register">register</Link>/<Link to="/Login">login</Link></span>}
+        </div>
     </header>
   )
 }

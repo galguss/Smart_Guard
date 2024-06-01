@@ -2,13 +2,13 @@
 #include <WiFiClient.h>
 #include <HTTPClient.h>
 
-const char* ssid = "Gal";
-const char* password = "0544933268";
+const char* ssid = "Kinneret College";
+//const char* password = "0544933268";
 
 WiFiClient client;
 
 void WiFi_Setup(){
-  WiFi.begin(ssid, password);
+  WiFi.begin(ssid);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -24,7 +24,7 @@ void SendData(int val) {
    String dataURL = "";
    dataURL += "IDY=9";
    dataURL += "&VAL="+String(val);
-   http.begin(client,"http://192.168.1.83:4000/ESP/Change?" + dataURL);
+   http.begin(client,"http://10.9.26.194:4000/ESP/Change?" + dataURL);
    int httpCode = http.GET();
    Serial.println(httpCode);
    http.end();

@@ -4,24 +4,39 @@
     margin-left: 60px;
 }
 
+.containerHeader{
+    height: 120px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.LOGEC{
+    width: 440px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .header{
-    height: 700px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
     background-image: url('../images/background.png');
     background-repeat: no-repeat;
-    background-size: 100% 580px;
+    background-size: 100% 380px;
     background-position: bottom;
     border-radius: 0 0 0 20%;
 }
 
 
 .nameApp{
-    margin-left: 40px;
     font-family: 'Times New Roman', Times, serif;
     font-size: 30px;
 }
 
 .RL{
-    margin-left: 650px;
     font-size: 24px;
     font-family: 'Times New Roman', Times, serif;
 }
