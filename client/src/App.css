@@ -13,3 +13,47 @@ a{
 h2{
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+.popup {
+    width:auto;
+    height: 20px;
+    position: absolute;
+    top: 200px;
+    border: 1px solid #ccc;
+    border-radius:6px 30px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    animation: slideInOut 6s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 26px;
+    
+  }
+
+  .success{
+    background-color: aquamarine;
+    color: black;
+  }
+
+  .failure{
+    background-color:lightcoral;
+    color: white;
+  }
+  
+  @keyframes slideInOut {
+    0% {
+        right: -100%;
+    }
+    20% {
+        right: 2%;
+    }
+    80% {
+        right: 2%;
+    }
+    100% {
+        right: -100%;
+    }
+}

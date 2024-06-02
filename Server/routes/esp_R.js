@@ -55,6 +55,7 @@ router.get('/Change', (req, res) => {
         res.status(200).send("OK");
     } catch (error) {
         console.log(error);
+        res.status(401).send("error");
     }
 });
 
@@ -64,6 +65,7 @@ router.get('/Pull', (req, res) => {
         res.status(200).send(distances[index]);
     } catch (error) {
         console.log(error);
+        res.status(401).send("error");
     }
 });
 

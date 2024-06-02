@@ -9,40 +9,71 @@ const sql = new Cars(db);
 router.get('/List', async (req, res) => {
     try {
         const  ID  = req.query.Id;
-        let carsNum = await sql.getAllCarNum(ID);
-        res.status(200).json(carsNum);
+        if(req.addSlashes(ID)){
+            let carsNum = await sql.getAllCarNum(ID);
+            res.status(200).json(carsNum);
+        }else{
+            res.status(401).json({
+                message:`The use of characters ' or " are illegal`
+            });
+        }
     } catch (error) {
         console.log(error);
+        res.status(401).json({message: "oops!! Something went wrong"});
     }
 });
 
 router.post('/Add',async (req, res) => {
     try {
         const { Id, carNum } = req.body;
-        await sql.AddCar(Id, carNum);
+        if(req.addSlashes(Id) && req.addSlashes(carNum)){
+            await sql.AddCar(Id, carNum);
+            res.status(200).json({message: `The addition was successful`});
+        }else{
+            res.status(401).json({
+                message:`The use of characters ' or " are illegal`
+            });
+        }
 
     } catch (error) {
         console.log(error);
+        res.status(401).json({message: "Add failed"});
     }
 });
 
 router.patch('/Edit',async (req,res) => {
     try {
         const { carNum, ApprovalsId } = req.body;
-        await sql.EditCar(ApprovalsId, carNum);
+        if(req.addSlashes(ApprovalsId) && req.addSlashes(carNum)){
+            await sql.EditCar(ApprovalsId, carNum);
+            res.status(200).json({message: "The Edited was successful"})
+        }else{
+            res.status(401).json({
+                message:`The use of characters ' or " are illegal`
+            });
+        }
 
     } catch (error) {
         console.log(error);
+        res.status(401).json({message: "Edit failed"});
     }
 });
 
 router.delete('/Delete', async (req,res) => {
     try {
         const { id } = req.body;
-        await sql.DeleteCar(id);
+        if(req.addSlashes(id)){
+            await sql.DeleteCar(id);
+            res.status(200).json({message: "The deletion was successful"})
+        }else{
+            res.status(401).json({
+                message:`The use of characters ' or " are illegal`
+            });
+        }
 
     } catch (error) {
         console.log(error);
+        res.status(401).json({message: "The deletion failed"});
     }
 })
 
