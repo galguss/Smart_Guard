@@ -25,7 +25,7 @@ class Guests{
             let [carId, _1] = await this.DB.execute('INSERT INTO cars (car_number) VALUES (?)', [carNum]);
             carId = carId.insertId;
         
-            return this.DB.execute('INSERT INTO entry_of_vehicles (car_number,yishuv,pach_image,entry_date,entry_time) VALUES (?,?,?,?,?)', [carId,objData.IDY,objData.image,objData.date,objData.time]);
+            return this.DB.execute('INSERT INTO guests (guest_last_name, guest_name, phone_number, resident_id, car_id) VALUES (?,?,?,?,?)', [lastName, name, phone, resident, carId]);
         }
 
         let sql = `INSERT INTO guests (guest_last_name, guest_name, phone_number, resident_id, car_id) VALUES ('${lastName}','${name}','${phone}',${resident}, ${carNumber[0].car_id})`

@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/table.css";
+import { Context } from "./Profile"
 
 function LocalCars({ Id, Token, handleEdit, handleType }) {
   const [CarsNum, setCarsNum] = useState([]);
   const [IdApprovals, setIdApprovals] = useState('');
-  const [Count, setCount] = useState(0);
   const [Alert, setAlert] = useState(false);
+  const [Message, setMessage] = useContext(Context);
   const navigate = useNavigate();
 
   useEffect(() => {
     getCarsNum();
-  }, [Count])
+  }, [])
 
   async function getCarsNum() {
     let res = await fetch(`http://localhost:4000/LocalCars/List?Id=${Id}`, {
@@ -23,8 +24,8 @@ function LocalCars({ Id, Token, handleEdit, handleType }) {
     setCarsNum(await res.json());
   }
 
-  function handleDelete(id) {
-    fetch("http://localhost:4000/LocalCars/Delete", {
+  async function handleDelete(id) {
+    let res = await fetch("http://localhost:4000/LocalCars/Delete", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -34,6 +35,10 @@ function LocalCars({ Id, Token, handleEdit, handleType }) {
         id: id,
       }),
     });
+    let data = await res.json();
+    setMessage({message: data.message, status: res.status, isVisible:true})
+    if(res.status === 200)
+      setCarsNum(CarsNum.filter(item => item.approvals_id !== id));
   }
 
   return (
@@ -45,7 +50,6 @@ function LocalCars({ Id, Token, handleEdit, handleType }) {
             className="alertBtn green"
             onClick={() => {
               handleDelete(IdApprovals.approvals_id);
-              setCount(Count + 1);
               setAlert(false);
             }}
           >
@@ -60,7 +64,7 @@ function LocalCars({ Id, Token, handleEdit, handleType }) {
         <thead>
           <tr>
             <th colSpan={3}>
-              <Link onChange={handleType('create')} to={"/Profile/PForm"}>הוספת רכב+</Link>
+              <Link className="btnTable" onChange={handleType('create')} to={"/Profile/PForm"}>הוספת רכב+</Link>
             </th>
           </tr>
           <tr>
@@ -73,9 +77,9 @@ function LocalCars({ Id, Token, handleEdit, handleType }) {
           {
             CarsNum.map((item, index) => {
               return <tr key={'car' + index}>
-                <td className="btn"><button onClick={() => {handleEdit(item); handleType('Edit'); navigate('/Profile/PForm')}}>ערוך</button></td>
+                <td className="btn"><button className="btnTable" onClick={() => {handleEdit(item); handleType('Edit'); navigate('/Profile/PForm')}}>ערוך</button></td>
                 <td>{item.car_number}</td>
-                <td className="btn" onClick={() => {setIdApprovals(item); setAlert(true); }}><button>מחק</button></td>
+                <td className="btn" onClick={() => {setIdApprovals(item); setAlert(true); }}><button className="btnTable">מחק</button></td>
               </tr>
             })
           }

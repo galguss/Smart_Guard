@@ -3,9 +3,10 @@ class Yishuvs{
         this.DB = DB;
     }
 
-    createYishuv(name, code){
+   async createYishuv(name, code){
         let sql = `INSERT INTO yishuvs(Yishuv_name, Yishuv_code) VALUE('${name}','${code}');`;
-        this.DB.execute(sql);
+        let yishuv =await this.DB.execute(sql);
+        return yishuv[0].insertId;
     }
 
     readAllYishuvs(){

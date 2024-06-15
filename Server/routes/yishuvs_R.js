@@ -24,8 +24,10 @@ router.post('/Add',async (req,res) => {
             let date = new Date();
             let code = md5("yis"+ date + "s") ;
             code = code.substring(0,6).toUpperCase();
-            await sql.createYishuv(Name, code);
-            res.status(200).json({message: `The addition was successful. The Yishuvs code is: ${code}`});
+            let id =await sql.createYishuv(Name, code)
+            //console.log(id);
+            let object = {Yishuv_id: id, Yishuv_name:Name, Yishuv_code:code};
+            res.status(200).json({message: `The addition was successful. The Yishuvs code is: ${code}`, yishuv: object});
         }else{
             res.status(401).json({
                 message:`The use of characters ' or " are illegal`
@@ -42,7 +44,7 @@ router.patch('/Edit',async (req,res) =>{
         const { Name, ID } = req.body;
         if(req.addSlashes(Name) && req.addSlashes(ID)){
             await sql.editYishuv(Name, ID);
-            res.status(200).json({message: "The Edited was successful"})
+            res.status(200).json({message: "The Edited was successful", yishuv:{Yishuv_id:ID}})
         }else{
             res.status(401).json({
                 message:`The use of characters ' or " are illegal`
