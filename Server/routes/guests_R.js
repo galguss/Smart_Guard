@@ -27,8 +27,8 @@ router.post('/Add', async (req, res) => {
     try {
         const {LastName, Name, Phone, CarNum, IdResident} = req.body;
         if(req.addSlashes(LastName) && req.addSlashes(Name) && req.addSlashes(CarNum) && req.addSlashes(Phone) && req.addSlashes(IdResident)){
-            await sql.createGuest(LastName, Name, Phone, IdResident, CarNum);
-            res.status(200).json({message: `The addition was successful`});
+           let id = await sql.createGuest(LastName, Name, Phone, IdResident, CarNum);
+            res.status(200).json({message: `The addition was successful`, guest:{...req.body,guest_id:id}});
         }else{
             res.status(401).json({
                 message:`The use of characters ' or " are illegal`

@@ -29,7 +29,9 @@ class Guests{
         }
 
         let sql = `INSERT INTO guests (guest_last_name, guest_name, phone_number, resident_id, car_id) VALUES ('${lastName}','${name}','${phone}',${resident}, ${carNumber[0].car_id})`
-        return this.DB.execute(sql);
+        let guest = await this.DB.execute(sql);
+
+        return guest[0].insertId;
     }
 
     async editGuest(guestId, carNum,lastName, name, phone){

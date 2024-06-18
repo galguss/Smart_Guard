@@ -1,9 +1,7 @@
 const express = require('express');
-//const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 const dotenv = require('dotenv');
-//const bodyParser = require('body-parser');
 
 const checkAuth = require('./middlewares/checkAuth');
 const adminCheckAuth = require('./middlewares/adminCheckAuth');
@@ -13,7 +11,7 @@ const HTTP_PORT = 4000;
 
 dotenv.config();
 
-//app.use(bodyParser.urlencoded({ extended: false }))
+
 app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
@@ -26,13 +24,13 @@ app.listen(HTTP_PORT, () => {
 const tokens = [];
 
 function decodeJwt(token) {
-    const base64Url = token.split('.')[1]; // Extract the payload (middle part of the token)
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); // Replace characters
+    const base64Url = token.split('.')[1]; 
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/'); 
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
       return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join('')); // Decode base64 and convert to JSON string
+    }).join('')); 
   
-    const decoded = JSON.parse(jsonPayload); // Parse JSON to JavaScript object
+    const decoded = JSON.parse(jsonPayload); 
     return decoded;
 }
 

@@ -1,4 +1,4 @@
-import {  Routes, Route } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 import "./App.css";
 
 import Header from "./components/Header";
@@ -15,12 +15,12 @@ function App() {
       <Header />
       <main className="main">
         <Routes>
-          <Route path="/" element={<Home />}/>
-          <Route path="/Register" element={<Register />}/>
-          <Route path="/Login" element={<Login />}/>
+          <Route path="/" element={<Home />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Login" element={<Login />} />
           <Route element={<Private />}>
-            <Route path="/GManager" element={<GManager />}/>
-            <Route path="/Profile/*" element={<Profile />}/>
+            <Route path="/GManager" element={<GManager />} />
+            <Route path="/Profile/*" element={<Profile />} />
           </Route>
         </Routes>
       </main>

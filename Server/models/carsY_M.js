@@ -25,7 +25,8 @@ class CarsY{
         let [carId, _a] = await this.DB.execute('INSERT INTO cars (car_number) VALUES (?)', [carNum]);
         
         let sql = `INSERT INTO local_cars(Yishuv_name, resident_last_name, car_number) VALUE(${YishuvName},${id},${carId.insertId});`;
-        return this.DB.execute(sql);
+        let car = await this.DB.execute(sql);
+        return car[0].insertId;
     }
 
     async EditCar(ApprovalsId, carNum){
