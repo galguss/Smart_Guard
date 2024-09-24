@@ -149,7 +149,7 @@ function GManager() {
         <label>:שם יישוב</label>
         <input
           type="text"
-          value={Name}
+          value={Name || ""}
           onChange={(e) => setName(e.target.value)}
         />
         <button

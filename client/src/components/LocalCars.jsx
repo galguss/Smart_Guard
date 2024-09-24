@@ -67,7 +67,7 @@ function LocalCars({ Id, Token, handleEdit, handleType }) {
             <th colSpan={3}>
               <Link
                 className="btnTable"
-                onChange={handleType("create")}
+                onClick={() => handleType("create")}
                 to={"/Profile/PForm"}
               >
                 הוספת רכב+

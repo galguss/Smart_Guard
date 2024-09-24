@@ -57,28 +57,28 @@ function GForm({ IdResident, Token, guest, type }) {
         <input
           type="text"
           name="guest_last_name"
-          value={InputObj.guest_last_name}
+          value={InputObj.guest_last_name || ""}
           onChange={(e) => changeData(e)}
         />
         <label>:שם פרטי</label>
         <input
           type="text"
           name="guest_name"
-          value={InputObj.guest_name}
+          value={InputObj.guest_name || ""}
           onChange={(e) => changeData(e)}
         />
         <label>:מספר פלאפון</label>
         <input
           type="text"
           name="phone_number"
-          value={InputObj.phone_number}
+          value={InputObj.phone_number || ""}
           onChange={(e) => changeData(e)}
         />
         <label>:מספר רכב</label>
         <input
           type="text"
           name="car_id"
-          value={InputObj.car_id}
+          value={InputObj.car_id || ""}
           onChange={(e) => changeData(e)}
         />
         <button

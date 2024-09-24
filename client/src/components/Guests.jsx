@@ -67,7 +67,7 @@ function Guests({ Id, Token, handleEdit, handleType }) {
             <th colSpan={6}>
               <Link
                 className="btnTable"
-                onChange={handleType("create")}
+                onClick={() => handleType("create")}
                 to={"/Profile/GForm"}
               >
                 הוספת אורח+

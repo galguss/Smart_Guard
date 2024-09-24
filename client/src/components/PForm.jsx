@@ -55,7 +55,7 @@ function PForm({ user, Token, CNum = "", Approvals = "", type }) {
         <input
           type="text"
           max={8}
-          value={CarNum}
+          value={CarNum || ""}
           onChange={(e) => setCarNum(e.target.value)}
           required
         />
