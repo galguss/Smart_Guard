@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const { addSlashes } = require('slashes');
 
 const db = require('../models/dataBase');
 const Guests = require('../models/guests_M');
@@ -8,15 +9,10 @@ const sql = new Guests(db);
 
 router.get('/List',async (req,res) => {
     try {
-        const  ID  = req.query.Id;
-        if(req.addSlashes(ID)){
-            const guests = await sql.readAllGuests(ID);
-            res.status(200).json(guests);
-        }else{
-            res.status(401).json({
-                message:`The use of characters ' or " are illegal`
-            });
-        }
+        const  ID  = addSlashes(req.query.Id);
+        const guests = await sql.readAllGuests(ID);
+        res.status(200).json(guests);
+      
     } catch (error) {
         console.log(error);
         res.status(401).json({message: "oops!! Something went wrong"});
@@ -26,14 +22,17 @@ router.get('/List',async (req,res) => {
 router.post('/Add', async (req, res) => {
     try {
         const {LastName, Name, Phone, CarNum, IdResident} = req.body;
-        if(req.addSlashes(LastName) && req.addSlashes(Name) && req.addSlashes(CarNum) && req.addSlashes(Phone) && req.addSlashes(IdResident)){
-           let id = await sql.createGuest(LastName, Name, Phone, IdResident, CarNum);
-            res.status(200).json({message: `The addition was successful`, guest:{...req.body,guest_id:id}});
-        }else{
-            res.status(401).json({
-                message:`The use of characters ' or " are illegal`
-            });
+        const secureLastName = addSlashes(LastName);
+        const secureName = addSlashes(Name);
+        const securePhone = addSlashes(Phone);
+
+        if (isNaN(CarNum) || isNaN(IdResident)) {
+            return res.status(400).json({message : 'Invalid number'});
         }
+    
+       let id = await sql.createGuest(secureLastName, secureName, securePhone, IdResident, CarNum);
+        res.status(200).json({message: `The addition was successful`, guest:{...req.body,guest_id:id}});
+
     } catch (error) {
         console.log(error);
         res.status(401).json({message: "Add failed"});
@@ -43,15 +42,17 @@ router.post('/Add', async (req, res) => {
 router.patch('/Edit', async (req, res) => {
     try {
         const {LastName, Name, Phone, CarNum, IdGuest} = req.body;
-        if(req.addSlashes(LastName) && req.addSlashes(Name) && req.addSlashes(CarNum) && req.addSlashes(Phone) && req.addSlashes(IdGuest)){
-            await sql.editGuest(IdGuest, CarNum,LastName, Name, Phone);
-            res.status(200).json({message: "The Edited was successful"});
-        }else{
-            res.status(401).json({
-                message:`The use of characters ' or " are illegal`
-            });
+        const secureLastName = addSlashes(LastName);
+        const secureName = addSlashes(Name);
+        const securePhone = addSlashes(Phone);
+
+        if (isNaN(CarNum) || isNaN(IdGuest)) {
+            return res.status(400).json({message : 'Invalid number'});
         }
 
+        await sql.editGuest(IdGuest, CarNum, secureLastName, secureName, securePhone);
+        res.status(200).json({message: "The Edited was successful"});
+        
     } catch (error) {
         console.log(error);
         res.status(401).json({message: "Edit failed"});
@@ -61,14 +62,14 @@ router.patch('/Edit', async (req, res) => {
 router.delete('/Delete', async (req,res) => {
     try {
         const {id} = req.body;
-        if(req.addSlashes(id)){
-            await sql.deleteGuest(id);
-            res.status(200).json({message: "The deletion was successful"})
-        }else{
-            res.status(401).json({
-                message:`The use of characters ' or " are illegal`
-            });
+        
+        if (isNaN(id)) {
+            return res.status(400).json({message : 'Invalid number'});
         }
+
+        await sql.deleteGuest(id);
+        res.status(200).json({message: "The deletion was successful"})
+      
     } catch (error) {
         console.log(error);
         res.status(401).json({message: "The deletion failed"});

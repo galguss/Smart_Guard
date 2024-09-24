@@ -34,14 +34,9 @@ function decodeJwt(token) {
     return decoded;
 }
 
-function addSlashes(val){
-    return /^[^'"]+$/.test(val);
-}
-
 app.use((req, res, next) => {
     req.tokens = tokens;
     req.decodeJwt = decodeJwt;
-    req.addSlashes = addSlashes;
     next();
 })
 
